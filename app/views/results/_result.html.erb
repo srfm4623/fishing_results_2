@@ -1,0 +1,20 @@
+<div class="card">
+<%= link_to image_tag( result.image.variant(resize: '300x300'), class: :card__img ), result_path(result[:id]) %>
+  <div class="card__body">
+    <%# <%= link_to "プロトタイプのタイトル", root_path, class: :card__title%>
+    <p class="card__summary">
+      <%= "エリア : #{result.area}" %><br>
+      <%= "サイズ : #{result.first_length} " %>
+      <%= " ~ #{result.second_length} " if result.second_length.present? %>
+      <%= " cm " %><br>
+      <% if result.first_weight.present? %>
+        <%= "ウェイト : #{result.first_weight} " %>
+        <%= " ~ #{result.second_weight} " if result.second_weight.present? %>
+        <%=" g " %><br>
+      <% else %>
+        <%= "ウェイト : -----" %>
+      <% end%>
+    </p>
+    <%= link_to "投稿者 : #{result.user.name}", user_path(result.user), class: :card__user %>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<%= form_with model: result, local: true do |f|%>
+
+  <div class="field">
+    <%= f.label :image, "画像 (必須)" %><br />
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="field">
+    <%= f.label :length, "サイズ" %><br />
+    <%= f.text_field :first_length, placeholder:"例)30" %><%= " cm" %>
+    <%= "~" %>
+    <%= f.text_field :second_length, placeholder:"例)50" %><%= " cm" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :weight, "ウェイト" %><br />
+    <%= f.text_field :first_weight, placeholder:"例)900" %><%= " g" %>
+    <%= "~" %>
+    <%= f.text_field :second_weight, placeholder:"例)2000" %><%= " g" %>
+  </div>
+
+    <div class="field">
+    <%= f.label :area, "エリア" %><br />
+    <%= f.text_field :area, placeholder:"例)芦ノ湖" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :means, "スタイル" %><br />
+    <%= f.text_field :means, placeholder:"例)おかっぱり" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :text, "コメント" %><br />
+    <%= f.text_area :text, class: :form__text %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "保存する", class: :form__btn  %>
+  </div>
+<% end %>

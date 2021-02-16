@@ -1,0 +1,17 @@
+<main class="main">
+  <div class="inner">
+    
+    <%# ログインしているときは以下を表示%>
+    <% if user_signed_in? %>
+      <div class="greeting">
+          <%= "こんにちは" %>
+        <%# <%= link_to current_user.name, user_path(current_user), class: :greeting__link %>
+      </div>
+    <% end %>
+
+    <div class="card__wrapper">
+      <%# 部分テンプレートで釣果投稿一覧を表示 %>
+      <%= render partial: "result", collection: @results %>
+    </div>
+  </div>
+</main>

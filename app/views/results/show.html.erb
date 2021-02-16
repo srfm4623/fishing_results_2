@@ -1,0 +1,97 @@
+<main class="main">
+  <div class="inner">
+    <div class="prototype__wrapper">
+      <p class="prototype__hedding">
+        <%# <%= "プロトタイプのタイトル"%>
+      </p>
+      <%= link_to " 投稿者 : #{@result.user.name} ", user_path(@result.user), class: :prototype__user %>
+
+      <%# 投稿者とログインしているユーザーが同じであれば以下を表示 %>
+        <% if user_signed_in? && current_user.id == @result.user_id %>
+          <div class="prototype__manage">
+            <%= link_to "編集する", edit_result_path(@result), class: :prototype__btn %>
+            <%= link_to "削除する", result_path(@result.id),  method: :delete, class: :prototype__btn %>
+          </div>
+        <% end %>
+
+      <div class="prototype__image">
+        <%= image_tag @result.image %>
+      </div>
+      <div class="prototype__body">
+        <div class="prototype__detail">
+          <p class="detail__title">エリア</p>
+          <p class="detail__message">
+            <%= @result.area %>
+          </p>
+        </div>
+        <div class="prototype__detail">
+          <p class="detail__title">スタイル</p>
+          <p class="detail__message">
+          <% if @result.means.present? %>
+            <%= " #{@result.means} " %>
+          <% else %>
+            <%= " ----- " %>
+          <% end%>
+
+          </p>
+        </div>
+        <div class="prototype__detail">
+          <p class="detail__title">サイズ</p>
+          <p class="detail__message">
+          <%= " #{@result.first_length} " %>
+          <%= " ~ #{@result.second_length} " if @result.second_length.present? %>
+          <%= " cm " %><br>
+          </p>
+        </div>
+        <div class="prototype__detail">
+          <p class="detail__title">ウェイト</p>
+          <p class="detail__message">
+          <% if @result.first_weight.present? %>
+            <%= " #{@result.first_weight} " %>
+            <%= " ~ #{@result.second_weight} " if @result.second_weight.present? %>
+            <%=" g " %><br>
+          <% else %>
+            <%= " ----- " %>
+          <% end%>
+          </p>
+        </div>
+      </div><br>
+      <div class="prototype__body__under">
+        <div class="prototype__detail">
+            <p class="detail__title">メッセージ</p>
+            <p class="detail__message">
+              <%= @result.text %>
+            </p>
+        </div>
+      </div>
+
+      <% if user_signed_in? %>
+        <div class="prototype__comments">
+          <%# ログインしているユーザーには以下のコメント投稿フォームを表示 %>
+          <%= form_with model: [@result, @comment], local: true do |f|%>
+            <div class="field">
+              <%= f.label :text, "コメント" %><br />
+              <%= f.text_field :text %>
+            </div>
+            <div class="actions">
+              <%= f.submit "送信する", class: :form__btn  %>
+            </div>
+          <% end %> 
+        </div>
+      <% else %>
+        <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+      <% end %>
+
+      <div>
+        <ul class="comments_lists">
+          <% @comments.each do |comment| %>
+            <li class="comments_list">
+              <%= comment.text%>
+              <%= link_to "(#{comment.user.name})", root_path, class: :comment_user %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
