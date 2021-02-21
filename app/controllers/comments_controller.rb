@@ -3,7 +3,8 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
-      redirect_to result_path(@comment.result)
+      ActionCable.server.broadcast 'comment_channel', content: @comment
+      # redirect_to result_path(@comment.result)
     # else
     #   @result = @comment.result
     #   @comments = @result.comments
